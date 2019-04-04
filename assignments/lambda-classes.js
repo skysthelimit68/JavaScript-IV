@@ -71,6 +71,7 @@ class Instructor extends Person {
     giveGrade(student) {
         let newGrade = student.grade + randomizer();
         student.grade =  newGrade >= 100 ? 100 : newGrade <= 0 ? 0 : newGrade;
+        student.isGraduated = student.grade >= 70? true : false;
     }
 }
 
@@ -96,6 +97,7 @@ class Student extends Person {
         this.className = att.className;
         this.favSubjects = att.favSubjects;
         this.grade = att.grade;
+        this.isGraduated = this.grade >= 70? true : false;
         
     }
     listsSubjects() {
@@ -108,7 +110,7 @@ class Student extends Person {
         return `${this.name} has begun sprint challenge on ${subject}`;
     }
     graduate() {
-        return this.grade >= 70? `${this.name} has graduated.` :  `${this.name} has not graduated.`;
+        return this.isGraduated? `${this.name} has graduated.` :  `${this.name} has not graduated.`;
     }
 }
 
