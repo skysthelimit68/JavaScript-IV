@@ -1,0 +1,31 @@
+
+.container {
+    width:100%;
+    max-width:800px;
+    margin:0 auto;
+    font-family: 'Courier New', Courier, monospace;
+}
+.groupWrapper {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    margin: 10px 0;
+}
+.groupWrapper h1 {
+    width:100%;
+}
+
+.personWrapper {
+    width:42%;
+    border:1px solid #ccc;
+    padding:10px 20px;
+}
+
+.personWrapper p {
+    margin:5px 0;
+}
+
+.grade {
+    color:green;
+    font-weight:900;
+}

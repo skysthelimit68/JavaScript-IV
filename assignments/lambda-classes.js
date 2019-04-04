@@ -21,6 +21,8 @@ const fred = new Instructor({
 });
 ```
 
+
+
 #### Person
 
 * First we need a Person class. This will be our `base-class`
@@ -28,6 +30,12 @@ const fred = new Instructor({
 * Person receives `speak` as a method.
 * This method logs out a phrase `Hello my name is Fred, I am from Bedrock` where `name` and `location` are the object's own props
 */
+function el(id) {
+    return document.getElementById(id);
+}
+
+
+
 
 class Person {
     constructor(att) {
@@ -71,7 +79,9 @@ class Instructor extends Person {
     giveGrade(student) {
         let newGrade = student.grade + randomizer();
         student.grade =  newGrade >= 100 ? 100 : newGrade <= 0 ? 0 : newGrade;
-        student.isGraduated = student.grade >= 70? true : false;
+        student.isGraduated = student.grade >= 70? "Yes" : "No";
+        el(`${student.name}_grade`).innerHTML = student.grade;
+        el(`${student.name}_graduated`).innerHTML = student.isGraduated;
     }
 }
 
@@ -97,8 +107,7 @@ class Student extends Person {
         this.className = att.className;
         this.favSubjects = att.favSubjects;
         this.grade = att.grade;
-        this.isGraduated = this.grade >= 70? true : false;
-        
+        this.isGraduated = this.grade >= 70? "Yes" : "No"; 
     }
     listsSubjects() {
         return `${this.favSubjects}`;
@@ -141,6 +150,11 @@ class ProjectManager extends Instructor {
     }
 }
 
+
+let instructors = [];
+let pms = [];
+let students = [];
+
 const teacher_karen = new Instructor({
         name : "Karen",
         age : 48,
@@ -148,8 +162,9 @@ const teacher_karen = new Instructor({
         gender : "Female",
         specialty : "Gives order",
         favLanguage : "JavaScript",
-        catchPhrase : "Use your psychic ability to solve this case!"
+        catchPhrase : "Use your psychic ability to solve this case!",    
 });
+instructors.push(teacher_karen);
 
 const teacher_lassiter = new Instructor({
     name : "Lassiter",
@@ -160,6 +175,7 @@ const teacher_lassiter = new Instructor({
     favLanguage : "PHP",
     catchPhrase : "SPENCER!"
 });
+instructors.push(teacher_lassiter);
 
 const student_shawn = new Student ({
     name : "Shawn",
@@ -169,8 +185,10 @@ const student_shawn = new Student ({
     previousBackground : "Freeloader",
     className : "PSYCH",
     favSubjects : ["Physychics", "Pinapple", "Making Quatro Queso Dos Fritos", "Eating Japadogs"],
-    grade : 80,
+    grade : 60,
 });
+students.push(student_shawn);
+
 const student_gus = new Student ({
     name : "Gus",
     age : 28,
@@ -179,8 +197,9 @@ const student_gus = new Student ({
     previousBackground : "Pharmaceutical salesperson",
     className : "PSYCH",
     favSubjects : ["Spelling", "Finance", "Driving the Blueberry", "Memorizing all the unique nicknames"],
-    grade : 80,
+    grade : 70,
 });
+students.push(student_gus);
 
 const pm_henry = new ProjectManager ({
         name : "Henry",
@@ -193,6 +212,7 @@ const pm_henry = new ProjectManager ({
         gradClassName : "PSYCH",
         favInstructor : "Karen"
 });
+pms.push(pm_henry);
 
 const pm_juliet = new ProjectManager ({
     name : "Juliet",
@@ -205,8 +225,60 @@ const pm_juliet = new ProjectManager ({
     gradClassName : "PSYCH",
     favInstructor : "Lassiter"
 });
+pms.push(pm_juliet);
 
 
+function getInstructors() {
+    instructors.forEach(elem => {
+        el("instructors").innerHTML += 
+        `<div class="personWrapper">
+        <p>Name: ${elem.name}</p>
+        <p>Age: ${elem.age}</p>
+        <p>Location: ${elem.location}</p>
+        <p>Gender: ${elem.gender}</p>
+        <p>Specialty: ${elem.specialty}</p>
+        <p>Favorite Language: ${elem.favLanguage}</p>
+        <p>Catch Phrase: ${elem.catchPhrase}</p>
+        </div>`;
+    })
+
+}
+function getPMs() {
+    pms.forEach(elem => {
+        el("pms").innerHTML += 
+        `<div class="personWrapper">
+        <p>Name: ${elem.name}</p>
+        <p>Age: ${elem.age}</p>
+        <p>Location: ${elem.location}</p>
+        <p>Gender: ${elem.gender}</p>
+        <p>Specialty: ${elem.specialty}</p>
+        <p>Favorite Language: ${elem.favLanguage}</p>
+        <p>Catch Phrase: ${elem.catchPhrase}</p>
+        <p>Grad Class Name: ${elem.gradClassName}</p>
+        <p>Favorite Instructor: ${elem.favInstructor}</p>
+        </div>`;
+    })
+
+}
+
+
+
+function getStudents() {
+    students.forEach(elem => {
+        el("students").innerHTML += 
+        `<div class="personWrapper">
+        <p>Name: ${elem.name}</p>
+        <p>Age: ${elem.age}</p>
+        <p>Location: ${elem.location}</p>
+        <p>Previous Background: ${elem.previousBackground}</p>
+        <p>Class Name: ${elem.className}</p>
+        <p>Favorite Subjects: ${elem.favSubjects}</p>
+        <p>Grade: <span id="${elem.name}_grade" class="grade">${elem.grade}</span></p>
+        <p>Graduated: <span id="${elem.name}_graduated">${elem.isGraduated}</span></p>
+        </div>`
+    })
+
+}
 
 console.log(teacher_karen);
 console.log(teacher_karen.speak());
@@ -216,7 +288,13 @@ console.log(student_gus.listsSubjects());
 console.log(pm_henry.standUp("web19 channel"));
 console.log(pm_juliet.debugsCode(student_gus, "Javascript"));
 
+getInstructors();
+getPMs();
+getStudents();
+
+
 function randomizer() {
     return Math.floor(Math.random() * 21) - 10;
 }
 console.log(student_shawn.graduate());
+
