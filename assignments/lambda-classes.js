@@ -239,6 +239,8 @@ function getInstructors() {
         <p>Specialty: ${elem.specialty}</p>
         <p>Favorite Language: ${elem.favLanguage}</p>
         <p>Catch Phrase: ${elem.catchPhrase}</p>
+        <form><select><option>Shawn</option><option>Gus</option></select><button>Change Grade</button> </form>
+
         </div>`;
     })
 
@@ -256,6 +258,8 @@ function getPMs() {
         <p>Catch Phrase: ${elem.catchPhrase}</p>
         <p>Grad Class Name: ${elem.gradClassName}</p>
         <p>Favorite Instructor: ${elem.favInstructor}</p>
+        <form><select><option>Shawn</option><option>Gus</option></select><button>Change Grade</button> </form>
+        
         </div>`;
     })
 
@@ -274,7 +278,7 @@ function getStudents() {
         <p>Class Name: ${elem.className}</p>
         <p>Favorite Subjects: ${elem.favSubjects}</p>
         <p>Grade: <span id="${elem.name}_grade" class="grade">${elem.grade}</span></p>
-        <p>Graduated: <span id="${elem.name}_graduated">${elem.isGraduated}</span></p>
+        <p>Graduation Status: <span id="${elem.name}_graduated">${elem.isGraduated}</span></p>
         </div>`
     })
 
